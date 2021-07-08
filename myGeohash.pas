@@ -34,8 +34,8 @@ interface
 uses SysUtils;
 
 type
-  TCardinalDirectionType = (Top = 0,
-    Right = 1, Bottom = 2, Left = 3);
+  TCardinalDirectionType = (cTop = 0,
+    cRight = 1, cBottom = 2, cLeft = 3);
 
 type
   TInterval  =  array[0..1] of Double;
@@ -93,8 +93,9 @@ begin
 
     lastChr := hash[hash.Length - 1];
 
-    is_odd := hash_length div 2;
+    is_odd := hash.Length div 2;
     dir := integer(direction);
+    nHash := hash.Substring(0, hash.Length - 1);
 
     if (Borders[is_odd][dir].IndexOf(lastChr) <>-1) then
     begin
