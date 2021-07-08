@@ -91,11 +91,11 @@ var
 begin
     hash := AnsiLowerCase(hash);
 
-    lastChr := hash[hash.Length - 1];
+    lastChr := hash[hash.Length];
 
-    is_odd := hash.Length div 2;
+    is_odd := hash.Length mod 2;
     dir := integer(direction);
-    nHash := hash.Substring(0, hash.Length - 1);
+    nHash := hash.Substring(0, hash.Length-1);
 
     if (Borders[is_odd][dir].IndexOf(lastChr) <>-1) then
     begin
@@ -103,7 +103,7 @@ begin
 
     end;
 
-    Result :=  nHash + Base32[Neighbors[is_odd][dir].IndexOf(lastChr)];
+    Result :=  nHash + Base32[Neighbors[is_odd][dir].IndexOf(lastChr)+1];
 end;
 
 function Decode(geohash : string):TInterval;
