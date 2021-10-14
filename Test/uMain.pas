@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.Actions,
+  Vcl.ActnList;
 
 type
   TForm2 = class(TForm)
@@ -27,8 +28,14 @@ type
     SouthEast: TEdit;
     Label4: TLabel;
     lblDecode: TLabel;
+    ActionList1: TActionList;
+    Action1: TAction;
     procedure btnEncodeClick(Sender: TObject);
     procedure btnDecodeClick(Sender: TObject);
+    procedure EastMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Action1Execute(Sender: TObject);
+    procedure lblDecodeDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,11 +51,25 @@ implementation
 
 uses myGeohash;
 
+procedure TForm2.Action1Execute(Sender: TObject);
+  function toString(value : TInterval):string;
+  begin
+     result :=  'lat:' + value[0].ToString + '; lon: ' + value[1].ToString;
+  end;
+
+  var
+    tmp : TInterval;
+begin
+  tmp := Decode((Sender as TEdit).Text);
+
+   lblDecode.Caption := toString(tmp);
+end;
+
 procedure TForm2.btnDecodeClick(Sender: TObject);
 
   function toString(value : TInterval):string;
   begin
-     result :=  'lat:' + value[0].ToString + ', lon: ' + value[1].ToString;
+     result :=  'lat:' + value[0].ToString + '; lon: ' + value[1].ToString;
   end;
 
   var
@@ -104,6 +125,47 @@ begin
 
   btnDecode.Enabled := True;
 
+end;
+
+procedure TForm2.EastMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+  function toString(value : TInterval):string;
+  begin
+     result :=  'lat:' + value[0].ToString + ' ; lon:' + value[1].ToString;
+  end;
+var
+  tmp: TInterval;
+begin
+//  showmessage((Sender as TEdit).Text);
+  tmp := Decode((Sender as TEdit).Text);
+  lblDecode.Caption := toString(tmp);
+end;
+
+procedure TForm2.lblDecodeDblClick(Sender: TObject);
+var
+  tmp, lat, lon: string;
+  LatLon, tmpLatLon : TStringList;
+begin
+   tmp := (Sender as TLabel).Caption;
+   LatLon := TStringList.Create;
+   tmpLatLon := TStringList.Create;
+    try
+      ExtractStrings([';'], [], PChar(tmp), tmpLatLon);
+      lat := tmpLatLon[0];
+      lon := tmpLatLon[1];
+      ExtractStrings([':'], [], PChar(lat), LatLon);
+      lat := LatLon[1];
+      LatLon.Clear;
+      ExtractStrings([':'], [], PChar(lon), LatLon);
+      lon := LatLon[1];
+
+      edtLat.Text := lat.Replace(',','.');
+      edtLng.Text := lon.Replace(',','.');
+
+    finally
+      LatLon.Free;
+      tmpLatLon.Free;
+    end;
 end;
 
 end.

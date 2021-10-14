@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions>
-    <Transaction>2021/07/09 09:24:21.936,=D:\Bibliotecas\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2021/07/09 09:32:15.237,D:\Bibliotecas\Documentos\GitHub\GeoHashDelphi\Test\uMain.pas=D:\Bibliotecas\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2021/07/09 09:32:15.237,D:\Bibliotecas\Documentos\GitHub\GeoHashDelphi\Test\uMain.dfm=D:\Bibliotecas\Documentos\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
-    <Transaction>2021/07/09 09:32:50.806,D:\Bibliotecas\Documentos\GitHub\GeoHashDelphi\Test\Calculate_GeoHash.dproj=D:\Bibliotecas\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>2021/07/09 09:33:35.849,=D:\Bibliotecas\Documentos\GitHub\GeoHashDelphi\myGeohash.pas</Transaction>
+	<Transactions>
+    <Transaction>2021/07/09 09:24:21.000.936,=D:\Bibliotecas\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2021/07/09 09:32:15.000.237,D:\Bibliotecas\Documentos\GitHub\GeoHashDelphi\Test\uMain.pas=D:\Bibliotecas\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2021/07/09 09:32:15.000.237,D:\Bibliotecas\Documentos\GitHub\GeoHashDelphi\Test\uMain.dfm=D:\Bibliotecas\Documentos\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2021/07/09 09:32:50.000.806,D:\Bibliotecas\Documentos\GitHub\GeoHashDelphi\Test\Calculate_GeoHash.dproj=D:\Bibliotecas\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021/07/09 09:33:35.000.849,=D:\Bibliotecas\Documentos\GitHub\GeoHashDelphi\myGeohash.pas</Transaction>
   </Transactions>
 </BorlandProject>

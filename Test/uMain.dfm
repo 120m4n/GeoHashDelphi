@@ -51,27 +51,28 @@ object Form2: TForm2
     Alignment = taCenter
     AutoSize = False
     WordWrap = True
+    OnDblClick = lblDecodeDblClick
   end
   object edtLat: TEdit
-    Left = 96
+    Left = 66
     Top = 34
-    Width = 90
+    Width = 135
     Height = 21
     Alignment = taCenter
     TabOrder = 0
     Text = '7.1384'
   end
   object edtLng: TEdit
-    Left = 96
+    Left = 66
     Top = 61
-    Width = 90
+    Width = 135
     Height = 21
     Alignment = taCenter
     TabOrder = 1
     Text = '-73.13'
   end
   object edtPrecision: TEdit
-    Left = 160
+    Left = 175
     Top = 88
     Width = 26
     Height = 21
@@ -81,7 +82,7 @@ object Form2: TForm2
     Text = '6'
   end
   object btnDecode: TButton
-    Left = 111
+    Left = 126
     Top = 138
     Width = 75
     Height = 25
@@ -107,6 +108,7 @@ object Form2: TForm2
     Alignment = taCenter
     TabOrder = 5
     Text = 'hash'
+    OnMouseDown = EastMouseDown
   end
   object NorthWest: TEdit
     Left = 232
@@ -116,6 +118,7 @@ object Form2: TForm2
     Alignment = taCenter
     TabOrder = 6
     Text = 'NorthWest'
+    OnMouseDown = EastMouseDown
   end
   object North: TEdit
     Left = 327
@@ -125,6 +128,7 @@ object Form2: TForm2
     Alignment = taCenter
     TabOrder = 7
     Text = 'North'
+    OnMouseDown = EastMouseDown
   end
   object NorthEast: TEdit
     Left = 422
@@ -134,6 +138,7 @@ object Form2: TForm2
     Alignment = taCenter
     TabOrder = 8
     Text = 'NorthEast'
+    OnMouseDown = EastMouseDown
   end
   object West: TEdit
     Left = 233
@@ -143,6 +148,7 @@ object Form2: TForm2
     Alignment = taCenter
     TabOrder = 9
     Text = 'West'
+    OnMouseDown = EastMouseDown
   end
   object East: TEdit
     Left = 423
@@ -152,6 +158,7 @@ object Form2: TForm2
     Alignment = taCenter
     TabOrder = 10
     Text = 'East'
+    OnMouseDown = EastMouseDown
   end
   object SouthWest: TEdit
     Left = 233
@@ -161,6 +168,7 @@ object Form2: TForm2
     Alignment = taCenter
     TabOrder = 11
     Text = 'SouthWest'
+    OnMouseDown = EastMouseDown
   end
   object South: TEdit
     Left = 328
@@ -170,6 +178,7 @@ object Form2: TForm2
     Alignment = taCenter
     TabOrder = 12
     Text = 'South'
+    OnMouseDown = EastMouseDown
   end
   object SouthEast: TEdit
     Left = 423
@@ -179,5 +188,14 @@ object Form2: TForm2
     Alignment = taCenter
     TabOrder = 13
     Text = 'SouthEast'
+    OnMouseDown = EastMouseDown
+  end
+  object ActionList1: TActionList
+    Left = 96
+    Top = 184
+    object Action1: TAction
+      Caption = 'Action1'
+      OnExecute = Action1Execute
+    end
   end
 end
