@@ -14,17 +14,18 @@ uses
   ShareMem,
   System.SysUtils,
   Windows,
-  System.Classes,
-  myGeohash in '..\..\myGeohash.pas';
+  myGeohash in 'myGeohash.pas';
 
-//var
- // _LocalNeighborsString : String;
+const
+  LibraryName = 'GeoHash.dll';
+  endl: string = #13#10;
+
 
 {$R *.res}
 
 function CalculateGeohashString(CoorText : PChar; LengthCoor : Integer):PChar; stdcall;
 var
-  _temp : TStringList;
+  _temp : TArray<String>;
   hash : string;
   formatSettings:  TFormatSettings;
   _tempstr : String;
@@ -40,11 +41,9 @@ begin
   try
     Result := '';
     SetString(_tempstr,CoorText,LengthCoor);
-    try
-      _temp := TStringList.Create;
-      ExtractStrings(['|'],[],CoorText,_temp);
 
-      if (_temp.Count >=3) then
+      _temp := _tempstr.Split(['|']);
+      if (Length(_temp) >=3) then
       begin
         lat := StrToFloat(_temp[0], formatSettings);
         lng := StrToFloat(_temp[1], formatSettings);
@@ -53,11 +52,6 @@ begin
         hash := Encode(lat, lng, hash_len);
         Result := PChar(hash);
       end;
-    finally
-      _temp.free;
-    end;
-
-//
 
   except
     on E : Exception do
@@ -65,6 +59,7 @@ begin
 
   end;
 end;
+
 
 function CalculateGeohash(latitude,longitude:Double):PChar; stdcall;
 var
@@ -115,34 +110,30 @@ end;
 
 Function CalculateNeighborsFromHash(hash : PChar; LengthHash : Integer):PChar; stdcall;
 var
-  _LocalNeighborsString : String;
-  _temp: TStringList;
+  _temp: String;
   _tmpHash,h_top,h_bottom  : String;
 begin
   try
     Result := '';
     SetString(_tmpHash,hash,LengthHash);
-    _temp := TStringList.Create;
     h_top  := CalculateAdjacent(_tmpHash, ctop );
     h_bottom := CalculateAdjacent(_tmpHash, cBottom);
 
-    _temp.Values['hash']   := _tmpHash;
-    _temp.Values['top'] := h_top;
-    _temp.Values['right']  := CalculateAdjacent(_tmpHash, cright);
-    _temp.Values['bottom'] := h_bottom;
-    _temp.Values['left']   := CalculateAdjacent(_tmpHash, cleft);
-    _temp.Values['top-right']     := CalculateAdjacent(h_top, cright);
-    _temp.Values['botton-right']  := CalculateAdjacent(h_bottom, cright);
-    _temp.Values['botton-left']   := CalculateAdjacent(h_bottom, cleft);
-    _temp.Values['top-left']      := CalculateAdjacent(h_top, cleft);
+    _temp := 'hash:'+hash + endl;
+    _temp := _temp + 'top:' + h_top + endl;
+    _temp := _temp + 'right:'  + CalculateAdjacent(hash, cright) + endl;
+    _temp := _temp + 'bottom:' + h_bottom + endl;
+    _temp := _temp + 'left:'   + CalculateAdjacent(hash, cleft) + endl;
+    _temp := _temp + 'top-right:'     + CalculateAdjacent(h_top, cright) + endl;
+    _temp := _temp + 'botton-right:'  + CalculateAdjacent(h_bottom, cright) + endl;
+    _temp := _temp + 'botton-left:'   + CalculateAdjacent(h_bottom, cleft) + endl;
+    _temp := _temp + 'top-left:'      + CalculateAdjacent(h_top, cleft);
 
+    Result := PChar(_temp);
 
-    _LocalNeighborsString := _temp.Text;
-    Result := PChar(_LocalNeighborsString);
-
-
-  finally
-    _temp.Free;
+  except
+    on E : Exception do
+      Result := PChar(E.Message);
   end;
 
 end;
@@ -152,36 +143,29 @@ var
   hash : string;
   h_top,h_bottom  : String;
   _LocalNeighborsString : String;
-  _temp: TStringList;
+  _temp: String;
 begin
   try
     Result := '';
     hash := Encode(latitude, longitude, hash_len);
-    try
+
       Result := '';
-      _temp := TStringList.Create;
+
       h_top  := CalculateAdjacent(hash, ctop );
       h_bottom := CalculateAdjacent(hash, cBottom);
 
-      _temp.Values['hash']   := hash;
-      _temp.Values['top'] := h_top;
-      _temp.Values['right']  := CalculateAdjacent(hash, cright);
-      _temp.Values['bottom'] := h_bottom;
-      _temp.Values['left']   := CalculateAdjacent(hash, cleft);
-      _temp.Values['top-right']     := CalculateAdjacent(h_top, cright);
-      _temp.Values['botton-right']  := CalculateAdjacent(h_bottom, cright);
-      _temp.Values['botton-left']   := CalculateAdjacent(h_bottom, cleft);
-      _temp.Values['top-left']      := CalculateAdjacent(h_top, cleft);
+      _temp := 'hash:'+hash + endl;
+      _temp := _temp + 'top:' + h_top + endl;
+      _temp := _temp + 'right:'  + CalculateAdjacent(hash, cright) + endl;
+      _temp := _temp + 'bottom:' + h_bottom + endl;
+      _temp := _temp + 'left:'   + CalculateAdjacent(hash, cleft) + endl;
+      _temp := _temp + 'top-right:'     + CalculateAdjacent(h_top, cright) + endl;
+      _temp := _temp + 'botton-right:'  + CalculateAdjacent(h_bottom, cright) + endl;
+      _temp := _temp + 'botton-left:'   + CalculateAdjacent(h_bottom, cleft) + endl;
+      _temp := _temp + 'top-left:'      + CalculateAdjacent(h_top, cleft);
 
+      Result := PChar(_temp);
 
-      //_LocalNeighborsString := stringreplace(_temp.commatext,',','@',[rfReplaceAll, rfIgnoreCase]);
-      _LocalNeighborsString := _temp.Text;
-      Result := PChar(_LocalNeighborsString);
-
-
-    finally
-      _temp.Free;
-    end;
 
   except
     on E : Exception do
